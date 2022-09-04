@@ -37,5 +37,4 @@ void MOTORC_SetAngle(float angle);
 float VofaModifyValue(const uint8_t* buffer,uint16_t len);
 
 
-
 #endif //DEMO_MOTOR_H
