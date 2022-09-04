@@ -33,6 +33,10 @@ PUTCHAR_PROTOTYPE
 
     return ch;
 }
+
+volatile uint8_t rx_len = 0;  //接收一帧数据的长度
+volatile uint8_t recv_end_flag = 0; //一帧数据接收完成标志
+uint8_t rx_buffer[100]={0};  //接收数据缓存数组
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart8;
@@ -63,7 +67,10 @@ void MX_UART8_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN UART8_Init 2 */
+    __HAL_UART_ENABLE_IT(&huart8, UART_IT_IDLE); //使能IDLE中断
 
+//DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
+    HAL_UART_Receive_DMA(&huart8,rx_buffer,BUFFER_SIZE);
   /* USER CODE END UART8_Init 2 */
 
 }

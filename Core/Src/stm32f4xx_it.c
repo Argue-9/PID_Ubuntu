@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -234,9 +235,20 @@ void DMA1_Stream6_IRQHandler(void)
 void UART8_IRQHandler(void)
 {
   /* USER CODE BEGIN UART8_IRQn 0 */
-
-  /* USER CODE END UART8_IRQn 0 */
-  HAL_UART_IRQHandler(&huart8);
+    uint32_t tmp_flag = 0;
+    uint32_t temp;
+    tmp_flag =__HAL_UART_GET_FLAG(&huart8,UART_FLAG_IDLE); //获取IDLE标志位
+    if((tmp_flag != RESET))//idle标志被置位
+    {
+        __HAL_UART_CLEAR_IDLEFLAG(&huart8);//清除标志位
+        //这两句和上面那句等效
+        HAL_UART_DMAStop(&huart8); //  停止DMA传输，防止
+        temp  =  __HAL_DMA_GET_COUNTER(&hdma_uart8_rx);// 获取DMA中未传输的数据个数
+        rx_len =  BUFFER_SIZE - temp; //总计数减去未传输的数据个数，得到已经接收的数据个数
+        recv_end_flag = 1;    // 接受完成标志位置1
+    }
+    /* USER CODE END UART8_IRQn 0 */
+    HAL_UART_IRQHandler(&huart8);
   /* USER CODE BEGIN UART8_IRQn 1 */
 
   /* USER CODE END UART8_IRQn 1 */

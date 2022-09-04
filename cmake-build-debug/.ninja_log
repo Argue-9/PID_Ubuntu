@@ -55,3 +55,7 @@
 53	87	1662279821809745825	Demo.elf	9adaa24828cb7caa
 1	56	1662279937107321935	CMakeFiles/Demo.elf.dir/Core/Src/main.c.obj	ca0522633a3e2fcd
 56	90	1662279937135322336	Demo.elf	9adaa24828cb7caa
+1	57	1662280415591038275	CMakeFiles/Demo.elf.dir/Core/Src/stm32f4xx_it.c.obj	9c1b460fd44374b6
+1	59	1662280415595038345	CMakeFiles/Demo.elf.dir/Core/Src/main.c.obj	ca0522633a3e2fcd
+2	70	1662280415607038554	CMakeFiles/Demo.elf.dir/Core/Src/usart.c.obj	1dbdd213adac529e
+70	102	1662280415635039043	Demo.elf	9adaa24828cb7caa

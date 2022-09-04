@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +48,8 @@
 
 /* USER CODE END PV */
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
@@ -96,8 +99,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      if (recv_end_flag == 1) //接收完成标志
+      {
+          HAL_UART_Transmit_DMA(&huart8, rx_buffer, rx_len);
+          printf("okk\r\n");
+          rx_len = 0;        //清除计数
+          recv_end_flag = 0; //清除接收结束标志位
+          memset(rx_buffer, 0, rx_len);
+          HAL_UART_Receive_DMA(&huart8, rx_buffer, BUFFER_SIZE); //重新打开DMA接收
+      }
+
       HAL_GPIO_TogglePin(LED_G_GPIO_Port,LED_G_Pin);
-      printf("okk\r\n");
       HAL_Delay(500);
     /* USER CODE END WHILE */
 
@@ -186,3 +198,5 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
+#pragma clang diagnostic pop
