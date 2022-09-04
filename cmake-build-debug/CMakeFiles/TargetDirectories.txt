@@ -1,0 +1,3 @@
+/home/huangwenjun/CLionProjects/Demo/cmake-build-debug/CMakeFiles/Demo.elf.dir
+/home/huangwenjun/CLionProjects/Demo/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/huangwenjun/CLionProjects/Demo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
